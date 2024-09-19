@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "2023 State Population Density (Persons/km2)",
+    "title": "2023 Australian State Population Density",
     "width": 800,
     "height": 400,
     "projection": {"type": "equalEarth"},
@@ -25,6 +25,7 @@
         "color": {
         "field": "Population Density",
         "type": "quantitative",
+        "title": "Population Density (Persons/km2)",
         "scale": {"type": "log", "scheme": "greenblue"}
         },
 
