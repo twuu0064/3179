@@ -1,9 +1,9 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "background": "#d2f6fa",
     "config": {"view": {"stroke": null}},
-    "width": 1000, 
-    "height": 500,
+    "title": "Australia's Future Population Estimates",
+    "width": 500, 
+    "height": 300,
     "layer":[
         {
             "data": {"url": "https://raw.githubusercontent.com/twuu0064/vis_2/refs/heads/main/data/totalPopulation.csv"},
