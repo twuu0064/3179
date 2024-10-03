@@ -7,7 +7,7 @@
     "mark": "line",
     "params": [{
       "name": "state",
-      "select": {"type": "point", "fields": ["State/Territory"]},
+      "select": {"type": "point", "fields": ["State"]},
       "bind": "legend"
     }],
     "encoding": {
@@ -16,12 +16,12 @@
         "axis": {"domain": false, "grid": false,"format": "%Y", "tickSize": 0}
       },
       "y": {"field": "Net Interstate Migration", "type": "quantitative"},
-      "color": {"field": "State/Territory", "type": "nominal",
-                        "scale": {"scheme": "set2"}},
+      "color": {"field": "State", "type": "nominal",
+                        "scale": {"scheme": "set2"}, "title": "State/Territory"},
       "opacity": {
         "condition": {"param": "state", "value": 1},
         "value": 0.2
       },
-      "tooltip": [{"field": "State/Territory"}, {"field": "Date", "type": "temporal"}, {"field": "Net Interstate Migration"}]
+      "tooltip": [{"field": "State", "title": "State/Territory"}, {"field": "Date", "type": "temporal"}, {"field": "Net Interstate Migration"}]
     }
   }
