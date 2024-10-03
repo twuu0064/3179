@@ -1,64 +1,114 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "config": {"view": {"stroke": null}},
-  "title": "Net Interstate Migration by State/Territory and State Average",
-  "width": 500, 
+  "data": {
+    "url": "https://raw.githubusercontent.com/twuu0064/fit3179/refs/heads/main/data/interstate_migration.csv"
+  },
+  "width": 400,
   "height": 300,
-  "data": {"url": "https://raw.githubusercontent.com/twuu0064/fit3179/refs/heads/main/data/interstate_migration.csv"},
-  "transform": [
-  {
-    "calculate": "datetime(datum.Date)",
-    "as": "Date"
-  }
-],
+  "params": [
+    {
+    "name": "State_selection",
+    "bind": {
+    "input": "select",
+    "options": [
+    null,
+    "Australian Capital Territory",
+    "New South Wales",
+    "Northern Territory",
+    "Queensland",
+    "Tasmania",
+    "South Australia",
+    "Tasmania",
+    "Victoria",
+    "Western Australia"
+    ],
+    "labels":[
+    "Show All",
+    "Australian Capital Territory",
+    "New South Wales",
+    "Northern Territory",
+    "Queensland",
+    "Tasmania",
+    "South Australia",
+    "Tasmania",
+    "Victoria",
+    "Western Australia"
+    ],
+    "name": "State Selection: "
+    }
+    }
+
+  ],
   "layer": [
     {
-    "mark": "line",
-        "params": [{
-          "name": "state",
-          "select": {"type": "point", "fields": ["State/Territory"]},
-          "bind": "legend"
-        }],
-        "encoding": {
-          "x": {
-            "timeUnit": "yearmonth", "field": "Date",
-            "axis": {"domain": false, "grid": false,"format": "%Y", "tickSize": 0}
-          },
-          "y": {"field": "NetInterstateMigration", "type": "quantitative"},
-          "color": {"field": "State/Territory", "type": "nominal",
-                            "scale": {"scheme": "set2"}, "title": "State/Territory"},
-          "opacity": {
-            "condition": {"param": "state", "value": 1},
-            "value": 0.2
-          },
-          "tooltip": [{"field": "State/Territory", "title": "State/Territory"}, {"field": "Date", "type": "temporal"}, {"field": "NetInterstateMigration", "format": ","}]
-        }
-    },
-
-    {
-      "mark": {"type": "text", "dy": 50},
-      "transform": [
-      {
-        "aggregate": [{
-         "op": "mean",
-         "field": "NetInterstateMigration",
-         "as": "mean_y_axis"
-        }],
-        "groupby": ["State/Territory"]
-      }
-    ],      
-    "encoding": {
-      "text": {"field": "mean_y_axis", "title": "Mean", "format": ".2f"},
-      "y": {"field": "mean_y_axis",
-            "type": "quantitative"}  ,
-      "color": {"field": "State/Territory"},
-       "opacity": {
-            "condition": {"param": "state", "value": 1},
-            "value": 0
+      "transform": [{"filter": "State_selection == null || datum['State/Territory'] == State_selection"}],
+      "encoding": {
+        "x": {"field": "Date", "type": "temporal", "timeUnit": "yearmonth"},
+        "y": {"field": "NetInterstateMigration", "type": "quantitative"},
+        "color": {"field": "State/Territory", "type": "nominal"}
+      },
+      "layer": [
+        {"mark": "line"},
+        {
+          "params": [{
+            "name": "label",
+            "select": {
+              "type": "point",
+              "encodings": ["x"],
+              "nearest": true,
+              "on": "pointerover"
+            }
+          }],
+          "mark": "point",
+          "encoding": {
+            "opacity": {
+              "condition": {
+                "param": "label",
+                "empty": false,
+                "value": 1
+              },
+              "value": 0
+            },
+             "tooltip": [{"field": "State/Territory", "title": "State/Territory"}, {"field": "Date", "type": "temporal"}, {"field": "NetInterstateMigration", "format": ","}]
           }
-             
-    }
+        }
+      ]
+    },
+    {
+      "transform": [{"filter": {"param": "label", "empty": false}}],
+      "layer": [
+        {
+          "mark": {"type": "rule", "color": "gray"},
+          "encoding": {
+            "x": {"type": "temporal", "field": "Date", "aggregate": "min"}
+          }
+        },
+        {
+          "encoding": {
+            "text": {"type": "quantitative", "field": "NetInterstateMigration"},
+            "x": {"type": "temporal", "field": "Date"},
+            "y": {"type": "quantitative", "field": "NetInterstateMigration"}
+          },
+          "layer": [
+            {
+              "mark": {
+                "type": "text",
+                "stroke": "white",
+                "strokeWidth": 2,
+                "align": "left",
+                "dx": 5,
+                "dy": -5
+              }
+            },
+            {
+              "mark": {"type": "text", "align": "left", "dx": 5, "dy": -5},
+              "encoding": {
+                "color": {"type": "nominal", "field": "State/Territory"}
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
-  
 }
