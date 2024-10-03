@@ -24,14 +24,14 @@
             "timeUnit": "yearmonth", "field": "Date",
             "axis": {"domain": false, "grid": false,"format": "%Y", "tickSize": 0}
           },
-          "y": {"field": "NetInterstateMigration", "type": "quantitative"},
+          "y": {"field": "NetInterstateMigration", "type": "quantitative", "title": "Net Interstate Migration"},
           "color": {"field": "State/Territory", "type": "nominal",
                             "scale": {"scheme": "set2"}, "title": "State/Territory"},
           "opacity": {
             "condition": {"param": "state", "value": 1},
             "value": 0.2
           },
-          "tooltip": [{"field": "State/Territory", "title": "State/Territory"}, {"field": "Date", "type": "temporal"}, {"field": "NetInterstateMigration", "format": ","}]
+          "tooltip": [{"field": "State/Territory", "title": "State/Territory"}, {"field": "Date", "type": "temporal"}, {"field": "NetInterstateMigration", "format": ",", "title": "Net Interstate Migration"}]
         }
     },
 

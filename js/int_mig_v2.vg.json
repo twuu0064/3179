@@ -1,0 +1,115 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/twuu0064/fit3179/refs/heads/main/data/interstate_migration.csv"
+    },
+    "width": 1000,
+    "height": 300,
+    "params": [
+      {
+      "name": "State_selection",
+      "bind": {
+      "input": "select",
+      "options": [
+      null,
+      "Australian Capital Territory",
+      "New South Wales",
+      "Northern Territory",
+      "Queensland",
+      "Tasmania",
+      "South Australia",
+      "Tasmania",
+      "Victoria",
+      "Western Australia"
+      ],
+      "labels":[
+      "Show All",
+      "Australian Capital Territory",
+      "New South Wales",
+      "Northern Territory",
+      "Queensland",
+      "Tasmania",
+      "South Australia",
+      "Tasmania",
+      "Victoria",
+      "Western Australia"
+      ],
+      "name": "State Selection: "
+      }
+      }
+  
+    ],
+    "layer": [
+      {
+        "transform": [{"filter": "State_selection == null || datum['State/Territory'] == State_selection"}],
+        "encoding": {
+          "x": {"field": "Date", "type": "temporal", "timeUnit": "yearmonth", "title": "Date"},
+          "y": {"field": "NetInterstateMigration", "type": "quantitative"},
+          "color": {"field": "State/Territory", "type": "nominal"}
+        },
+        "layer": [
+          {"mark": "line"},
+          {
+            "params": [{
+              "name": "label",
+              "select": {
+                "type": "point",
+                "encodings": ["x"],
+                "nearest": true,
+                "on": "pointerover"
+              }
+            }],
+            "mark": "point",
+            "encoding": {
+              "opacity": {
+                "condition": {
+                  "param": "label",
+                  "empty": false,
+                  "value": 1
+                },
+                "value": 0
+              },
+               "tooltip": [{"field": "State/Territory", "title": "State/Territory"}, {"field": "Date", "type": "temporal"}, {"field": "NetInterstateMigration", "format": ",", "title": "Net Interstate Migration"}]
+            }
+          }
+        ]
+      },
+      {
+        "transform": [{"filter": {"param": "label", "empty": false}}],
+        "layer": [
+           {
+             "mark": {"type": "rule", "color": "gray"},
+             "encoding": {
+             "x": {"type": "temporal", "field": "Date"}
+            }
+          },
+          {
+            "encoding": {
+              "text": {"type": "quantitative", "field": "NetInterstateMigration", "format": ",", "title": "Net Interstate Migration"},
+              "x": {"type": "temporal", "field": "Date", "title": "Date"},
+              "y": {"type": "quantitative", "field": "NetInterstateMigration", "format": ",", "title": "Net Interstate Migration"}
+            },
+            "layer": [
+              {
+                "mark": {
+                  "type": "text",
+                  "stroke": "white",
+                  "strokeWidth": 2,
+                  "align": "left",
+                  "dx": 5,
+                  "dy": -5
+                }
+              },
+              {
+                "mark": {"type": "text", "align": "left", "dx": 5, "dy": -5},
+                "encoding": {
+                  "color": {"type": "nominal", "field": "State/Territory"}
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  

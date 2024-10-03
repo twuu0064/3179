@@ -38,11 +38,18 @@
 
     </div>
    
+    <div class = "pure-g">
+      <div class = "pure-u-1-1">
+        <div id="int_mig_2"></div>
+        <p> Open this chart in Vega Editor for interactive annotations</p>
+      </div>
+    </div>
 
     <script type="text/javascript">
     
       var spec1 = "js/interstate_migration.vg.json";
       var spec2 = "js/futurePopulation.vg.json";
+      var spec3 = "js/int_mig_v2.vg.json";
 
 
       vegaEmbed('#interstate_migration', spec1).then(function(result) {
@@ -50,6 +57,10 @@
       }).catch(console.error);
 
       vegaEmbed('#future_population', spec2).then(function(result) {
+        // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+      }).catch(console.error);
+
+      vegaEmbed('#int_mig_2', spec3).then(function(result) {
         // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
       }).catch(console.error);
 
