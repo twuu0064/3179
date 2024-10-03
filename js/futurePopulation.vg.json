@@ -13,8 +13,7 @@
                     "timeUnit": "year", "field": "Year", "title": "Year",
                     "axis": {"domain": false, "grid": false,"format": "%Y", "tickSize": 0}
                 },
-                "y": {"field": "Population", "type": "quantitative",
-                    "scale": {"zero": false}
+                "y": {"field": "Population", "type": "quantitative"
                     },
                 "tooltip": [{"field":"Year", "type": "temporal", "timeUnit": "year", "title":"Year"},{"field":"Population", "type": "quantitative", "format":","}]
         }
@@ -29,8 +28,7 @@
                     "axis": {"domain": false, "grid": false,"format": "%Y", "tickSize": 0}
                 },
                 "y": {
-                    "field": "Population", "type": "quantitative",
-                    "scale": {"zero": false}
+                    "field": "Population", "type": "quantitative"
                 },
                 "color": {
                     "field": "Scenario", "type": "ordinal",
